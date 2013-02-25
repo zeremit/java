@@ -27,23 +27,24 @@ public class AddProduct {
 	static private final String Insert_Product  = "Insert into product model, sku";
 
 	public static void main(String[] args) throws IOException, InterruptedException {
-		FileInputStream file = new FileInputStream(new File("base24_test.xls"));
+		FileInputStream file = new FileInputStream(new File("base24.xls"));
 		HSSFWorkbook workbook = new HSSFWorkbook(file);
 
 		HSSFSheet sheet = workbook.getSheetAt(0);
 		Iterator<Row> rowIterator = sheet.iterator();
+		rowIterator.next();
 		while (rowIterator.hasNext()) {
 			Row row = rowIterator.next();
-
+			Product product = new Product();
+			System.out.println(row.getCell(0));
+			product.setCode((int) row.getCell(1).getNumericCellValue());
+			product.setOkpd(row.getCell(11).getStringCellValue());
+			product.setName(row.getCell(2).getStringCellValue());
+			product.setDescription(row.getCell(4).getStringCellValue());
+//			System.out.println(row.getCell(3));
+//			product.setSku(Integer.toString((int)row.getCell(3).getNumericCellValue()));
+			product.setCost(Double.parseDouble((row.getCell(5).getStringCellValue())));
 			Cell cell = row.getCell(2);
-			switch (cell.getCellType()) {
-			case Cell.CELL_TYPE_STRING:
-				String s = cell.getStringCellValue();
-				Thread.sleep(1000);
-				System.out.println(s);
-				break;
-
-			}
 
 		}
 		file.close();
