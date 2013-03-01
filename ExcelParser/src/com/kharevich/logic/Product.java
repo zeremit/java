@@ -4,11 +4,13 @@ import java.math.BigDecimal;
 import java.sql.Date;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Entity
 @Table(name = "product")
 public class Product {
 	@Id
@@ -22,11 +24,11 @@ public class Product {
 	@Column(name = "sku", nullable = false, length = 64)
 	private String sku;
 
-	@Column(name = "code", nullable = true)
-	private int code;
-
-	@Column(name = "okdp", nullable = true)
-	private int okdp;
+//	@Column(name = "code", nullable = true)
+//	private int code;
+//
+//	@Column(name = "okdp", nullable = true)
+//	private int okdp;
 
 	@Column(name = "upc", nullable = false, length = 12)
 	private String upc;
@@ -70,8 +72,8 @@ public class Product {
 	@Column(name = "tax_class_id", nullable = false)
 	private int tax_class_id = 0;
 
-	@Column(name = "date_avalable", nullable = false)
-	private Date date_avalable;
+	@Column(name = "date_available", nullable = false)
+	private Date date_available;
 
 	@Column(name = "weight", nullable = false)
 	private BigDecimal weight = BigDecimal.ZERO;
@@ -111,4 +113,268 @@ public class Product {
 
 	@Column(name = "viewed", nullable = false)
 	private int viewed = 0;
+
+	public long getProduct_id() {
+		return product_id;
+	}
+
+	public void setProduct_id(long product_id) {
+		this.product_id = product_id;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public String getSku() {
+		return sku;
+	}
+
+	public void setSku(String sku) {
+		this.sku = sku;
+	}
+
+//	public int getCode() {
+//		return code;
+//	}
+//
+//	public void setCode(int code) {
+//		this.code = code;
+//	}
+//
+//	public int getOkdp() {
+//		return okdp;
+//	}
+//
+//	public void setOkdp(int okdp) {
+//		this.okdp = okdp;
+//	}
+
+	public String getUpc() {
+		return upc;
+	}
+
+	public void setUpc(String upc) {
+		this.upc = upc;
+	}
+
+	public String getEan() {
+		return ean;
+	}
+
+	public void setEan(String ean) {
+		this.ean = ean;
+	}
+
+	public String getJan() {
+		return jan;
+	}
+
+	public void setJan(String jan) {
+		this.jan = jan;
+	}
+
+	public String getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+
+	public String getMpn() {
+		return mpn;
+	}
+
+	public void setMpn(String mpn) {
+		this.mpn = mpn;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public int getStock_status_id() {
+		return stock_status_id;
+	}
+
+	public void setStock_status_id(int stock_status_id) {
+		this.stock_status_id = stock_status_id;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+	public int getManufacturer_id() {
+		return manufacturer_id;
+	}
+
+	public void setManufacturer_id(int manufacturer_id) {
+		this.manufacturer_id = manufacturer_id;
+	}
+
+	public int getShipping() {
+		return shipping;
+	}
+
+	public void setShipping(int shipping) {
+		this.shipping = shipping;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
+	public int getTax_class_id() {
+		return tax_class_id;
+	}
+
+	public void setTax_class_id(int tax_class_id) {
+		this.tax_class_id = tax_class_id;
+	}
+
+	public Date getDate_avalable() {
+		return date_available;
+	}
+
+	public void setDate_avalable(Date date_avalable) {
+		this.date_available = date_avalable;
+	}
+
+	public BigDecimal getWeight() {
+		return weight;
+	}
+
+	public void setWeight(BigDecimal weight) {
+		this.weight = weight;
+	}
+
+	public int getWeight_class_id() {
+		return weight_class_id;
+	}
+
+	public void setWeight_class_id(int weight_class_id) {
+		this.weight_class_id = weight_class_id;
+	}
+
+	public BigDecimal getLength() {
+		return length;
+	}
+
+	public void setLength(BigDecimal length) {
+		this.length = length;
+	}
+
+	public BigDecimal getWidth() {
+		return width;
+	}
+
+	public void setWidth(BigDecimal width) {
+		this.width = width;
+	}
+
+	public BigDecimal getHeight() {
+		return height;
+	}
+
+	public void setHeight(BigDecimal height) {
+		this.height = height;
+	}
+
+	public int getLength_class_id() {
+		return length_class_id;
+	}
+
+	public void setLength_class_id(int length_class_id) {
+		this.length_class_id = length_class_id;
+	}
+
+	public int getSubtract() {
+		return subtract;
+	}
+
+	public void setSubtract(int subtract) {
+		this.subtract = subtract;
+	}
+
+	public int getMinimum() {
+		return minimum;
+	}
+
+	public void setMinimum(int minimum) {
+		this.minimum = minimum;
+	}
+
+	public int getSort_order() {
+		return sort_order;
+	}
+
+	public void setSort_order(int sort_order) {
+		this.sort_order = sort_order;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public Date getDate_added() {
+		return date_added;
+	}
+
+	public void setDate_added(Date date_added) {
+		this.date_added = date_added;
+	}
+
+	public Date getDate_modified() {
+		return date_modified;
+	}
+
+	public void setDate_modified(Date date_modified) {
+		this.date_modified = date_modified;
+	}
+
+	public int getViewed() {
+		return viewed;
+	}
+
+	public void setViewed(int viewed) {
+		this.viewed = viewed;
+	}
 }
