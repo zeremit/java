@@ -66,9 +66,14 @@ public class AddProduct {
 		// }
 		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
-		Product user = (Product) session.get(Product.class, (long)59);
+		Product user = (Product) session.get(Product.class, (long) 59);
 		session.getTransaction().commit();
 		System.out.println(user.getModel());
+		session = HibernateUtil.getSessionFactory().openSession();
+		user.setProduct_id(100000);
+		session.beginTransaction();
+		session.save(user);
+		session.getTransaction().commit();
 
 	}
 
