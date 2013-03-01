@@ -19,8 +19,10 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.util.CellUtil;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 import com.kharevich.logic.Product;
+import com.kharevich.logic.ProductDescription;
 import com.kharevich.util.HibernateUtil;
 
 public class AddProduct {
@@ -73,6 +75,15 @@ public class AddProduct {
 		user.setProduct_id(100000);
 		session.beginTransaction();
 		session.save(user);
+		System.out.println(session.createCriteria(ProductDescription.class).add(Restrictions.eq("language_id",(long) 1)).list().size());
+		ProductDescription pd = new ProductDescription();
+		pd.setDescription("ololo)");
+		pd.setName("ololo");
+		pd.setProduct_id(59);
+		pd.setMeta_description("");
+		pd.setMeta_keyword("");
+		pd.setTag("");
+		session.saveOrUpdate(pd);
 		session.getTransaction().commit();
 
 	}
