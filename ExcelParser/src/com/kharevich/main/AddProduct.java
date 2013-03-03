@@ -86,6 +86,8 @@ public class AddProduct {
 			BigDecimal price = new BigDecimal(ExcelHelper.getString(row
 					.getCell(5))).divide(devide,1,RoundingMode.HALF_UP);
 			product.setPrice(price);
+			price = new BigDecimal(ExcelHelper.getString(row
+					.getCell(6))).divide(devide,1,RoundingMode.HALF_UP);
 			product.setPartner_price(price);
 			productdescription.setDescription(ExcelHelper.getString(row
 					.getCell(4)));
