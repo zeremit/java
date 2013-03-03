@@ -6,8 +6,12 @@
 	<classpathentry kind="lib" path="libs/poi-3.9-20121203.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/hibernate"/>
-	<classpathentry kind="con" path="org.jboss.ide.eclipse.as.classpath.core.j2ee-1.4"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v7.0"/>
 	<classpathentry kind="lib" path="libs/javax/javax.persistence.jar"/>
+	<classpathentry kind="lib" path="libs/spring/spring-beans-3.2.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="libs/spring/spring-core-3.2.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="libs/spring/spring-context-3.2.1.RELEASE.jar"/>
+	<classpathentry kind="lib" path="libs/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="libs/spring/spring-expression-3.2.1.RELEASE.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

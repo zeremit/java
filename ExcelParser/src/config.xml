@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="hello" class="com.kharevich.logic.Product">
+		<property name="sku" value="" />
+		<property name="upc" value="" />
+		<property name="ean" value="" />
+		<property name="jan" value="" />
+		<property name="isbn" value="" />
+		<property name="mpn" value="" />
+		<property name="location" value="" />
+		<property name="stock_status_id" value="4" />
+		<property name="manufacturer_id" value="0" />
+		<property name="shipping" value="1" />
+		<property name="points" value="0" />
+		<property name="tax_class_id" value="0" />
+		<property name="weight" value="0" />
+		<property name="weight_class_id" value="7" />
+		<property name="length" value="0" />
+		<property name="width" value="0" />
+		<property name="height" value="0" />
+		<property name="length_class_id" value="4" />
+		<property name="subtract" value="1" />
+		<property name="minimum" value="1" />
+		<property name="sort_order" value="1" />
+		<property name="status" value="1" />
+	</bean>
+</beans>

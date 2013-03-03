@@ -1,5 +1,6 @@
 package com.kharevich.logic;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.Date;
 
@@ -13,6 +14,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "product")
 public class Product {
+	
+	private Product() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	@Id
 	@Column(name = "product_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -376,5 +382,17 @@ public class Product {
 
 	public void setViewed(int viewed) {
 		this.viewed = viewed;
+	}
+	
+	public String toParams() throws IllegalArgumentException, IllegalAccessException{
+		String prefix = "<property name=\"";
+		String middle = "\" value=\"";
+		String postfix = "\"/>";
+		Field[] field = this.getClass().getDeclaredFields();
+		StringBuilder sb = new StringBuilder();
+		for (Field t : field) {
+			sb.append(prefix).append(t.getName()).append(middle).append(t.get(this)).append(postfix).append("\n");
+		}
+		return sb.toString();
 	}
 }
