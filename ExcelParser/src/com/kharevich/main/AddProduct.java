@@ -2,115 +2,113 @@ package com.kharevich.main;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.net.MalformedURLException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.DecimalFormat;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.util.CellUtil;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.Transaction;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.kharevich.logic.Product;
 import com.kharevich.logic.ProductDescription;
+import com.kharevich.logic.ProductToCategory;
+import com.kharevich.logic.ProductToStore;
+import com.kharevich.util.ExcelHelper;
 import com.kharevich.util.HibernateUtil;
 
 public class AddProduct {
 
-	private static Connection connection = null;
+	private static ClassPathXmlApplicationContext ac;
+	
+	private static final BigDecimal devide = new BigDecimal("8600");
 
-	static public final String driver = "com.mysql.jdbc.Driver";
-	static public final String connectionString = "jdbc:mysql://localhost:3306/greenlab_landshop";
-	static public final String user = "root";
-	static public final String password = "";
-
-	static private final String Insert_Product = "Insert into product model, sku";
-
-	public static void main(String[] args) throws IOException,
-			InterruptedException, IllegalArgumentException, IllegalAccessException {
-		// ClassPathXmlApplicationContext ac = new
-		// ClassPathXmlApplicationContext(
-		// new String[] { "config.xml" });// показываем Spring где лежит
-		// // файл конфигурации
-		// Product h = (Product) ac.getBean("hello");// указываем id нашего
-		// bean-а
-		// System.out.println(h.getModel());
-		// FileInputStream file = new FileInputStream(new File("base24.xls"));
-		// HSSFWorkbook workbook = new HSSFWorkbook(file);
+	public static void main(String[] args) throws Exception {
+		Session session = null;
+		Transaction tx = null;
+		// ProductDescription user = null;
+		// try {
+		// session = HibernateUtil.getSessionFactory().openSession();
+		// tx = session.beginTransaction();
+		// user = (ProductDescription) session.get(ProductDescription.class,
+		// (long) 1583);
+		// tx.commit();
 		//
-		// HSSFSheet sheet = workbook.getSheetAt(0);
-		// Iterator<Row> rowIterator = sheet.iterator();
-		// rowIterator.next();
-		// Set<Integer> type = new HashSet<Integer>();
-		// while (rowIterator.hasNext()) {
-		// Row row = rowIterator.next();
-		// // Product product = new Product();
-		// type.add(row.getCell(1).getCellType());
-		// System.out.println(getString(row.getCell(1)));
-		// // product.setCode((int) row.getCell(1).getNumericCellValue());
-		// // product.setOkpd(row.getCell(11).getStringCellValue());
-		// // product.setName(row.getCell(2).getStringCellValue());
-		// // product.setDescription(row.getCell(4).getStringCellValue());
-		// // System.out.println(row.getCell(3));
-		// //
-		// //
-		// product.setSku(Integer.toString((int)row.getCell(3).getNumericCellValue()));
-		// //
-		// //
-		// product.setCost(Double.parseDouble((row.getCell(5).getStringCellValue())));
-		// Cell cell = row.getCell(2);
-		// // Cell.CELL_TYPE_BLANK;
-		//
+		// } catch (Exception e) {
+		// if (tx != null)
+		// tx.rollback();
+		// throw e;
+		// } finally {
+		// session.close();
 		// }
-		// file.close();
-		// for (int t : type) {
-		// System.out.println(t);
-		// }
-		Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		Product user = (Product) session.get(Product.class, (long) 59);
-		session.getTransaction().commit();
-		System.out.println(user.toParams());
+		// System.out.println(user.toParams());
 
-	}
+		ac = new ClassPathXmlApplicationContext(new String[] { "config.xml" });
+		FileInputStream file = new FileInputStream(new File("base24.xls"));
+		HSSFWorkbook workbook = new HSSFWorkbook(file);
 
-	private static String getString(Cell cell) {
-		switch (cell.getCellType()) {
-		case Cell.CELL_TYPE_STRING:
-			return cell.getStringCellValue();
-		case Cell.CELL_TYPE_NUMERIC:
-			DecimalFormat df = new DecimalFormat();
-			df.setDecimalSeparatorAlwaysShown(false);
-			return df.format(cell.getNumericCellValue());
-
+		HSSFSheet sheet = workbook.getSheetAt(0);
+		Iterator<Row> rowIterator = sheet.iterator();
+		rowIterator.next();
+		Set<Integer> type = new HashSet<Integer>();
+		while (rowIterator.hasNext()) {
+			Product product = (Product) ac.getBean("product_base");
+			ProductDescription productdescription = (ProductDescription) ac
+					.getBean("product_description_base");
+			ProductToStore productToStore = (ProductToStore) ac
+					.getBean("product_to_store_base");
+			ProductToCategory productToCategory = (ProductToCategory) ac
+					.getBean("product_to_category_base");
+			Row row = rowIterator.next();
+			// Product product = new Product();
+			type.add(row.getCell(1).getCellType());
+			// product.setCode((int) row.getCell(1).getNumericCellValue());
+			// product.setOkpd(row.getCell(11).getStringCellValue());
+			// product.setName(row.getCell(2).getStringCellValue());
+			// product.setDescription(row.getCell(4).getStringCellValue());
+			// System.out.println(row.getCell(3));
+			//
+			//
+			//
+			//
+			// System.out.println(row.getCell(5));
+			String s = ExcelHelper.getString(row.getCell(2));
+			product.setModel(s);
+			product.setPartner_product_id((long) row.getCell(0).getNumericCellValue());
+			product.setCode(ExcelHelper.getString(row.getCell(1)));
+			product.setOkdp(ExcelHelper.getString(row.getCell(11)));
+			product.setSku(ExcelHelper.getString(row.getCell(3)));
+			BigDecimal price = new BigDecimal(ExcelHelper.getString(row
+					.getCell(5))).divide(devide,1,RoundingMode.HALF_UP);
+			product.setPrice(price);
+			product.setPartner_price(price);
+			productdescription.setDescription(ExcelHelper.getString(row
+					.getCell(4)));
+			productdescription.setName(s);
+			try {
+				session = HibernateUtil.getSessionFactory().openSession();
+				tx = session.beginTransaction();
+				session.save(product);
+				productdescription.setProduct_id(product.getProduct_id());
+				session.save(productdescription);
+				productToStore.setProduct_id(product.getProduct_id());
+				session.save(productToStore);
+				productToCategory.setProduct_id(product.getProduct_id());
+				session.save(productToCategory);
+				tx.commit();
+			} catch (Exception e) {
+				if (tx != null)
+					tx.rollback();
+				throw e;
+			} finally {
+				session.close();
+			}
 		}
-		return "";
-
-	}
-
-	static private Connection getConnection() throws ClassNotFoundException,
-			SQLException {
-		if (connection != null)
-			return connection;
-		Class.forName(driver);
-		connection = DriverManager.getConnection(connectionString, user,
-				password);
-		return connection;
 
 	}
 

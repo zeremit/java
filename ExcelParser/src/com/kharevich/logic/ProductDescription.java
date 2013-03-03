@@ -1,5 +1,7 @@
 package com.kharevich.logic;
 
+import java.lang.reflect.Field;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "product_description")
-public class ProductDescription {
+public class ProductDescription extends Bean{
 
 	@Id
 	@Column(name = "product_id")
@@ -85,6 +87,27 @@ public class ProductDescription {
 
 	public void setTag(String tag) {
 		this.tag = tag;
+	}
+
+	public String toParams()  {
+		String prefix = "<property name=\"";
+		String middle = "\" value=\"";
+		String postfix = "\"/>";
+		Field[] field = this.getClass().getDeclaredFields();
+		StringBuilder sb = new StringBuilder();
+		for (Field t : field) {
+			try {
+				sb.append(prefix).append(t.getName()).append(middle)
+						.append(t.get(this)).append(postfix).append("\n");
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+//				e.printStackTrace();
+			}
+		}
+		return sb.toString();
 	}
 
 }

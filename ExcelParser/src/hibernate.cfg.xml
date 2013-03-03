@@ -10,7 +10,10 @@
   <property name="hibernate.default_schema">greenlab_landshop</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
   <property name="hibernate.show_sql">true</property>
+  <property name="hibernate.connection.characterEncoding">UTF-8</property>
   <mapping class="com.kharevich.logic.Product"/>
   <mapping class="com.kharevich.logic.ProductDescription"/>
+  <mapping class="com.kharevich.logic.ProductToStore"/>
+  <mapping class="com.kharevich.logic.ProductToCategory"/>
  </session-factory>
 </hibernate-configuration>

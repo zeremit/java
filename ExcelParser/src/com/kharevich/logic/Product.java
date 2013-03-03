@@ -1,8 +1,8 @@
 package com.kharevich.logic;
 
-import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,28 +13,32 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "product")
-public class Product {
-	
+public class Product extends Bean {
+
 	private Product() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Id
 	@Column(name = "product_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long product_id;
+	
+	@Column(name = "partner_product_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long partner_product_id;
 
-	@Column(name = "model", nullable = false, length = 64)
+	@Column(name = "model", nullable = false, length = 100)
 	private String model;
 
 	@Column(name = "sku", nullable = false, length = 64)
 	private String sku;
 
-//	@Column(name = "code", nullable = true)
-//	private int code;
-//
-//	@Column(name = "okdp", nullable = true)
-//	private int okdp;
+	@Column(name = "code", nullable = true, length = 20)
+	private String code;
+
+	@Column(name = "okdp", nullable = true, length = 20)
+	private String okdp;
 
 	@Column(name = "upc", nullable = false, length = 12)
 	private String upc;
@@ -71,6 +75,9 @@ public class Product {
 
 	@Column(name = "price", nullable = false)
 	private BigDecimal price = BigDecimal.ZERO;
+	
+	@Column(name = "partner_price", nullable = false)
+	private BigDecimal partner_price = BigDecimal.ZERO;
 
 	@Column(name = "points", nullable = true, columnDefinition = "int(8) default 0")
 	private int points;
@@ -79,7 +86,8 @@ public class Product {
 	private int tax_class_id = 0;
 
 	@Column(name = "date_available", nullable = false)
-	private Date date_available;
+	private Date date_available = new Date(Calendar.getInstance()
+			.getTimeInMillis());;
 
 	@Column(name = "weight", nullable = false)
 	private BigDecimal weight = BigDecimal.ZERO;
@@ -112,10 +120,11 @@ public class Product {
 	private int status = 0;
 
 	@Column(name = "date_added", nullable = false)
-	private Date date_added;
+	private Date date_added = new Date(Calendar.getInstance().getTimeInMillis());
 
 	@Column(name = "date_modified", nullable = false)
-	private Date date_modified;
+	private Date date_modified = new Date(Calendar.getInstance()
+			.getTimeInMillis());
 
 	@Column(name = "viewed", nullable = false)
 	private int viewed = 0;
@@ -126,6 +135,14 @@ public class Product {
 
 	public void setProduct_id(long product_id) {
 		this.product_id = product_id;
+	}
+
+	public long getPartner_product_id() {
+		return partner_product_id;
+	}
+
+	public void setPartner_product_id(long partner_product_id) {
+		this.partner_product_id = partner_product_id;
 	}
 
 	public String getModel() {
@@ -144,21 +161,21 @@ public class Product {
 		this.sku = sku;
 	}
 
-//	public int getCode() {
-//		return code;
-//	}
-//
-//	public void setCode(int code) {
-//		this.code = code;
-//	}
-//
-//	public int getOkdp() {
-//		return okdp;
-//	}
-//
-//	public void setOkdp(int okdp) {
-//		this.okdp = okdp;
-//	}
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getOkdp() {
+		return okdp;
+	}
+
+	public void setOkdp(String okdp) {
+		this.okdp = okdp;
+	}
 
 	public String getUpc() {
 		return upc;
@@ -254,6 +271,14 @@ public class Product {
 
 	public void setPrice(BigDecimal price) {
 		this.price = price;
+	}
+
+	public BigDecimal getPartner_price() {
+		return partner_price;
+	}
+
+	public void setPartner_price(BigDecimal partner_price) {
+		this.partner_price = partner_price;
 	}
 
 	public int getPoints() {
@@ -383,16 +408,5 @@ public class Product {
 	public void setViewed(int viewed) {
 		this.viewed = viewed;
 	}
-	
-	public String toParams() throws IllegalArgumentException, IllegalAccessException{
-		String prefix = "<property name=\"";
-		String middle = "\" value=\"";
-		String postfix = "\"/>";
-		Field[] field = this.getClass().getDeclaredFields();
-		StringBuilder sb = new StringBuilder();
-		for (Field t : field) {
-			sb.append(prefix).append(t.getName()).append(middle).append(t.get(this)).append(postfix).append("\n");
-		}
-		return sb.toString();
-	}
+
 }

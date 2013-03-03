@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<bean id="hello" class="com.kharevich.logic.Product">
+	<bean id="product_base" class="com.kharevich.logic.Product">
 		<property name="sku" value="" />
 		<property name="upc" value="" />
 		<property name="ean" value="" />
@@ -26,5 +26,19 @@
 		<property name="minimum" value="1" />
 		<property name="sort_order" value="1" />
 		<property name="status" value="1" />
+	</bean>
+	<bean id="product_description_base" class="com.kharevich.logic.ProductDescription">
+		<property name="language_id" value="2" />
+		<property name="name" value="" />
+		<property name="description" value="" />
+		<property name="meta_description" value="" />
+		<property name="meta_keyword" value="" />
+		<property name="tag" value="" />
+	</bean>
+	<bean id="product_to_store_base" class="com.kharevich.logic.ProductToStore">
+		<property name="store_id" value="0" />
+	</bean>
+	<bean id="product_to_category_base" class="com.kharevich.logic.ProductToCategory">
+		<property name="category_id" value="458" />
 	</bean>
 </beans>
