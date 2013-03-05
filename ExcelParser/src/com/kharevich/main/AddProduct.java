@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -13,6 +14,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.kharevich.logic.Product;
@@ -25,7 +27,7 @@ import com.kharevich.util.HibernateUtil;
 public class AddProduct {
 
 	private static ClassPathXmlApplicationContext ac;
-	
+
 	private static final BigDecimal devide = new BigDecimal("8600");
 
 	public static void main(String[] args) throws Exception {
@@ -57,7 +59,6 @@ public class AddProduct {
 		rowIterator.next();
 		Set<Integer> type = new HashSet<Integer>();
 		while (rowIterator.hasNext()) {
-			Product product = (Product) ac.getBean("product_base");
 			ProductDescription productdescription = (ProductDescription) ac
 					.getBean("product_description_base");
 			ProductToStore productToStore = (ProductToStore) ac
@@ -77,32 +78,53 @@ public class AddProduct {
 			//
 			//
 			// System.out.println(row.getCell(5));
-			String s = ExcelHelper.getString(row.getCell(2));
-			product.setModel(s);
-			product.setPartner_product_id((long) row.getCell(0).getNumericCellValue());
-			product.setCode(ExcelHelper.getString(row.getCell(1)));
-			product.setOkdp(ExcelHelper.getString(row.getCell(11)));
-			product.setSku(ExcelHelper.getString(row.getCell(3)));
-			BigDecimal price = new BigDecimal(ExcelHelper.getString(row
-					.getCell(5))).divide(devide,1,RoundingMode.HALF_UP);
-			product.setPrice(price);
-			price = new BigDecimal(ExcelHelper.getString(row
-					.getCell(6))).divide(devide,1,RoundingMode.HALF_UP);
-			product.setPartner_price(price);
-			productdescription.setDescription(ExcelHelper.getString(row
-					.getCell(4)));
-			productdescription.setName(s);
 			try {
 				session = HibernateUtil.getSessionFactory().openSession();
 				tx = session.beginTransaction();
-				session.save(product);
-				productdescription.setProduct_id(product.getProduct_id());
-				session.save(productdescription);
-				productToStore.setProduct_id(product.getProduct_id());
-				session.save(productToStore);
-				productToCategory.setProduct_id(product.getProduct_id());
-				session.save(productToCategory);
-				tx.commit();
+				@SuppressWarnings("unchecked")
+				List<Product> result = session
+						.createCriteria(Product.class)
+						.add(Restrictions.eq("partner_product_id", (long) row
+								.getCell(0).getNumericCellValue()))
+						.setMaxResults(1).list();
+				Product product = null;
+				if (result.size() > 0) {
+					product = result.get(0);
+					session.update(product);
+				} else {
+					product = (Product) ac.getBean("product_base");
+					String s = ExcelHelper.getString(row.getCell(2));
+					product.setModel(s);
+					product.setPartner_product_id((long) row.getCell(0)
+							.getNumericCellValue());
+					product.setCode(ExcelHelper.getString(row.getCell(1)));
+					product.setOkdp(ExcelHelper.getString(row.getCell(11)));
+					product.setSku(ExcelHelper.getString(row.getCell(3)));
+					System.out.println(product.getPartner_product_id());
+					BigDecimal price = new BigDecimal(ExcelHelper.getString(row
+							.getCell(5)).replaceAll("[\']","").replaceAll(",",".")).divide(devide, 1,
+							RoundingMode.HALF_UP);
+					product.setPrice(price);
+					price = new BigDecimal(
+							ExcelHelper.getString(row.getCell(6))).divide(
+							devide, 1, RoundingMode.HALF_UP);
+					product.setPartner_price(price);
+					productdescription.setDescription(ExcelHelper.getString(row
+							.getCell(4)));
+					productdescription.setName(s);
+					session.save(product);
+					productdescription.setProduct_id(product.getProduct_id());
+					session.save(productdescription);
+					productToStore.setProduct_id(product.getProduct_id());
+					session.save(productToStore);
+					productToCategory.setProduct_id(product.getProduct_id());
+					session.save(productToCategory);
+				}
+				// try {
+				// session = HibernateUtil.getSessionFactory().openSession();
+				// tx = session.beginTransaction();
+
+				 tx.commit();
 			} catch (Exception e) {
 				if (tx != null)
 					tx.rollback();
