@@ -4,18 +4,27 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.poi.ss.usermodel.Cell;
 
 public class ExcelHelper {
+	
+	private static final Pattern digitalPattern = Pattern.compile("\\d+");
 
-	private static Map<String, Integer> status = new HashMap<String, Integer>();
+	private static Map<String, Integer> status = new HashMap<String, Integer>() {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -6244173495815534740L;
+
 	{
-		status.put("резерв", 0);
-		status.put("дней", 100);
-		status.put("дня", 100);
-		status.put("день", 100);
-	};
+		put("резерв", 0);
+		put("дней", 10);
+		put("дня", 10);
+		put("день", 10);
+	}};
 
 	public static String getString(Cell cell) {
 		switch (cell.getCellType()) {
@@ -37,16 +46,22 @@ public class ExcelHelper {
 			String s = cell.getStringCellValue().toLowerCase();
 			for (Entry<String, Integer> pair : status.entrySet()) {
 				if (s.contains(pair.getKey())) {
-					System.out.println("ok");
-					return pair.getValue();
+					return pair.getValue()*extractNumber(s);
 				}
 			}
-			System.out.println("err"+s);
 			break;
 		case Cell.CELL_TYPE_NUMERIC:
-			cell.getNumericCellValue();
+			return (int) cell.getNumericCellValue();
 
 		}
 		return 0;
+	}
+	
+	private static int extractNumber(String s){
+		Matcher m = digitalPattern.matcher(s); 
+		while (m.find()) {
+		   return Integer.valueOf(m.group());
+		}
+		return 1;
 	}
 }

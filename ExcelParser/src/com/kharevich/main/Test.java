@@ -58,17 +58,17 @@ public class Test {
 		Iterator<Row> rowIterator = sheet.iterator();
 		rowIterator.next();
 		Set<Integer> type = new HashSet<Integer>();
+		int i=0;
 		while (rowIterator.hasNext()) {
-			ProductDescription productdescription = (ProductDescription) ac
-					.getBean("product_description_base");
-			ProductToStore productToStore = (ProductToStore) ac
-					.getBean("product_to_store_base");
-			ProductToCategory productToCategory = (ProductToCategory) ac
-					.getBean("product_to_category_base");
+//			ProductDescription productdescription = (ProductDescription) ac
+//					.getBean("product_description_base");
+//			ProductToStore productToStore = (ProductToStore) ac
+//					.getBean("product_to_store_base");
+//			ProductToCategory productToCategory = (ProductToCategory) ac
+//					.getBean("product_to_category_base");
 			Row row = rowIterator.next();
 			// Product product = new Product();
-			type.add(row.getCell(1).getCellType());
-			ExcelHelper.getStatus(row.getCell(8));
+//			ExcelHelper.getStatus(row.getCell(8));
 //			System.out.println(ExcelHelper.getStatus(row.getCell(8)));
 			// product.setCode((int) row.getCell(1).getNumericCellValue());
 			// product.setOkpd(row.getCell(11).getStringCellValue());
@@ -80,20 +80,22 @@ public class Test {
 			//
 			//
 			// System.out.println(row.getCell(5));
-//			try {
-//				session = HibernateUtil.getSessionFactory().openSession();
-//				tx = session.beginTransaction();
-//				@SuppressWarnings("unchecked")
-//				List<Product> result = session
-//						.createCriteria(Product.class)
-//						.add(Restrictions.eq("partner_product_id", (long) row
-//								.getCell(0).getNumericCellValue()))
-//						.setMaxResults(1).list();
-//				Product product = null;
-//				if (result.size() > 0) {
-//					product = result.get(0);
-//					session.update(product);
-//				} else {
+			try {
+				session = HibernateUtil.getSessionFactory().openSession();
+				tx = session.beginTransaction();
+				@SuppressWarnings("unchecked")
+				List<Product> result = session
+						.createCriteria(Product.class)
+						.add(Restrictions.eq("partner_product_id", (long) row
+								.getCell(0).getNumericCellValue()))
+						.setMaxResults(1).list();
+				Product product = null;
+				if (result.size() > 0) {
+					product = result.get(0);
+					product.setQuantity(ExcelHelper.getStatus(row.getCell(8)));
+					session.update(product);
+				} 
+//				else {
 //					product = (Product) ac.getBean("product_base");
 //					String s = ExcelHelper.getString(row.getCell(2));
 //					product.setModel(s);
@@ -122,18 +124,18 @@ public class Test {
 //					productToCategory.setProduct_id(product.getProduct_id());
 //					session.save(productToCategory);
 //				}
-//				// try {
-//				// session = HibernateUtil.getSessionFactory().openSession();
-//				// tx = session.beginTransaction();
-//
-//				 tx.commit();
-//			} catch (Exception e) {
-//				if (tx != null)
-//					tx.rollback();
-//				throw e;
-//			} finally {
-//				session.close();
-//			}
+				// try {
+				// session = HibernateUtil.getSessionFactory().openSession();
+				// tx = session.beginTransaction();
+
+				 tx.commit();
+			} catch (Exception e) {
+				if (tx != null)
+					tx.rollback();
+				throw e;
+			} finally {
+				session.close();
+			}
 		}
 
 	}
