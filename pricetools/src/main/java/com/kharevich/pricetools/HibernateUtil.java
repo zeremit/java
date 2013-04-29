@@ -12,7 +12,7 @@ public class HibernateUtil {
 	private static ServiceRegistry serviceRegistry;
  
     /**
-     * �������� �������
+     * 
      * @return {@link SessionFactory}
      * @throws HibernateException
      */
@@ -26,7 +26,7 @@ public class HibernateUtil {
     }
  
     /**
-     * �������� ������� ������
+     * 
      * @return {@link SessionFactory}
      */
     public static SessionFactory getSessionFactory() {
