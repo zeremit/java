@@ -7,8 +7,9 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.kharevich.pricetools.logic.Product;
 
@@ -18,7 +19,9 @@ import com.kharevich.pricetools.logic.Product;
 public class AppTest 
     extends TestCase
 {
-    /**
+    private ApplicationContext ac;
+
+	/**
      * Create the test case
      *
      * @param testName name of the test case
@@ -46,12 +49,19 @@ public class AppTest
     
     public void testConn() {
     	Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction tx = session.beginTransaction();
 		@SuppressWarnings("unchecked")
 		List<Product> result = session
 				.createCriteria(Product.class)
 				.add(Restrictions.eq("partner_product_id", (long) 3))
 				.setMaxResults(1).list();
 		assertTrue(result.size()>0);
+	}
+    
+    public void testProduct() {
+    	ac = new ClassPathXmlApplicationContext(new String[] { "config.xml" });
+    	Product product = (Product) ac.getBean("product_base");
+    	assertTrue(product.getStock_status_id() == 4);
+    	
+		
 	}
 }
