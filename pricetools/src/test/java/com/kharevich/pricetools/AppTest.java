@@ -12,6 +12,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.kharevich.pricetools.logic.Product;
+import com.kharevich.pricetools.service.ProductService;
+import com.kharevich.pricetools.service.ProductServiceImpl;
 
 /**
  * Unit test for simple App.
@@ -55,6 +57,12 @@ public class AppTest
 				.add(Restrictions.eq("partner_product_id", (long) 3))
 				.setMaxResults(1).list();
 		assertTrue(result.size()>0);
+	}
+    
+    public void testSave() {
+    	ProductService service = new ProductServiceImpl();
+    	System.out.println(service.getProduct(3).getProduct_id());
+		assertTrue(true);
 	}
     
     public void testProduct() {

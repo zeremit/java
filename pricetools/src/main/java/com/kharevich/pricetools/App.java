@@ -18,7 +18,7 @@ public class App
     public static void main( String[] args )
     {
         
-    	ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext(new String[] { "config.xml" });
+    	ClassPathXmlApplicationContext ac = new ClassPathXmlApplicationContext(new String[] { "beanlocations.xml" });
     	Product product = (Product) ac.getBean("product_base");
     }
 }
