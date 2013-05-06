@@ -92,7 +92,9 @@ public class Test {
 				Product product = null;
 				if (result.size() > 0) {
 					product = result.get(0);
-					product.setQuantity(ExcelHelper.getStatus(row.getCell(8)));
+					int count = ExcelHelper.getStatus(row.getCell(8));
+					product.setQuantity(count);
+					product.setStock_status_id((count>0) ? 4 : 9);
 					session.update(product);
 				} 
 //				else {
