@@ -28,7 +28,7 @@ public class AddProduct {
 
 	private static ClassPathXmlApplicationContext ac;
 
-	private static final BigDecimal devide = new BigDecimal("8600");
+	private static final BigDecimal devide = new BigDecimal("8700");
 
 	public static void main(String[] args) throws Exception {
 		Session session = null;
