@@ -90,7 +90,7 @@ public class AddProduct {
 				Product product = null;
 				if (result.size() > 0) {
 					product = result.get(0);
-					session.update(product);
+				//	session.update(product);
 				} else {
 					product = (Product) ac.getBean("product_base");
 					String s = ExcelHelper.getString(row.getCell(2));
