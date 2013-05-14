@@ -2,6 +2,7 @@ package com.kharevich.pricetools.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kharevich.pricetools.logic.Product;
 import com.kharevich.pricetools.logic.dao.ProductDAO;
@@ -18,7 +19,7 @@ public class ProductServiceImpl implements ProductService {
 
 	}
 
-	@Override
+	@Transactional
 	public Product getProduct(long id) {
 		// TODO Auto-generated method stub
 		return productDAO.getProduct(id);

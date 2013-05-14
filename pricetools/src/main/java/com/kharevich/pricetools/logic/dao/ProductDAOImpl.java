@@ -28,4 +28,12 @@ public class ProductDAOImpl implements ProductDAO {
 		return result.get(0);
 	}
 
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
 }
