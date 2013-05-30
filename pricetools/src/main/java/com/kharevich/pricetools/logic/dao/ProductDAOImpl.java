@@ -6,9 +6,11 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kharevich.pricetools.logic.Product;
 
+@Transactional
 @Repository
 public class ProductDAOImpl implements ProductDAO {
 
@@ -20,7 +22,7 @@ public class ProductDAOImpl implements ProductDAO {
 		sessionFactory.getCurrentSession().save(product);
 	}
 
-	@Override
+	@Transactional
 	public Product getProduct(long id) {
 		List<Product> result = (List<Product>) sessionFactory.getCurrentSession()
 				.createCriteria(Product.class)
