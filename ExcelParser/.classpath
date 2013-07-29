@@ -14,5 +14,7 @@
 	<classpathentry kind="lib" path="libs/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="libs/spring/spring-expression-3.2.1.RELEASE.jar"/>
 	<classpathentry kind="con" path="org.jboss.ide.eclipse.as.classpath.core.javaee-5.0"/>
+	<classpathentry kind="lib" path="libs/jxl.jar"/>
+	<classpathentry kind="lib" path="libs/ftp/commons-net-3.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
