@@ -16,5 +16,6 @@
 	<classpathentry kind="con" path="org.jboss.ide.eclipse.as.classpath.core.javaee-5.0"/>
 	<classpathentry kind="lib" path="libs/jxl.jar"/>
 	<classpathentry kind="lib" path="libs/ftp/commons-net-3.3.jar"/>
+	<classpathentry kind="lib" path="libs/owner-1.0.4.1.jar" sourcepath="/home/zeremit/.m2/repository/org/aeonbits/owner/owner/1.0.4.1/owner-1.0.4.1-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

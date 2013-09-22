@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -35,7 +34,6 @@ public class UploadImage {
 		try {
 			// load a properties file
 			prop.load(new FileInputStream("server_config.properties"));
-			FileInputStream file = new FileInputStream(new File("base.xls"));
 
 			// get the property value and print it out
 			// HSSFWorkbook workbook = new HSSFWorkbook(file);
@@ -117,6 +115,8 @@ public class UploadImage {
 						} catch (MalformedURLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
+						} catch (IOException e) {
+							System.out.println("url not found");
 						}
 					}
 					break;
@@ -134,9 +134,6 @@ public class UploadImage {
 				e.printStackTrace();
 			}
 		}
-		for (String fl : fileList) {
-			// System.out.println(fl);
-		}
 		System.out.println(fileList.size());
 	}
 
@@ -145,7 +142,6 @@ public class UploadImage {
 		BufferedInputStream in = null;
 		FileOutputStream fout = null;
 		try {
-			File file = new File(filename);
 			in = new BufferedInputStream(
 					new URL(urlString + filename).openStream());
 //			fout = new FileOutputStream(file);
