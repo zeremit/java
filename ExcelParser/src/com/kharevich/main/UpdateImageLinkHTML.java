@@ -2,43 +2,50 @@ package com.kharevich.main;
 
 import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Iterator;
+
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.hibernate.Query;
+import org.hibernate.Session;
 
 import com.kharevich.logic.HTMLProductParser;
+import com.kharevich.util.ExcelHelper;
+import com.kharevich.util.HibernateUtil;
 import com.kharevich.util.HttpUtil;
 
-public class DownloadImage {
-
-	private static String FOLDER = "toolsby/";
-	private static String PREFIX = "http://www.tools.by/newkatfiles/";
+public class UpdateImageLinkHTML {
+	
+	private static String PREFIX = "data/toolsby/";
 	private static String POSTFIX = ".jpg";
 	private static int i = 0;
 
 	public static void main(String[] args) {
-		List<String> linkList = new ArrayList<String>();
+		
 		try {
-			File file = HttpUtil.download("http://www.tools.by/base.php",
-					"test.xls");
+			File file = HttpUtil.download("http://www.tools.by/base.php", "test.xls");
 			HTMLProductParser parser = new HTMLProductParser(file);
 			parser.iterator();
+
+			Session session = HibernateUtil.getSessionFactory().openSession();
 			while (parser.hasNext()) {
 				parser.next();
+				String hql = "update Product set image = :newImage where partner_product_id = :code";
+		        Query query = session.createQuery(hql);
+		        query.setString("newImage",PREFIX+parser.getID()+POSTFIX);
+		        query.setLong("code",Long.parseLong(parser.getID()));
+		        int rowCount = query.executeUpdate();
+		        System.out.println(parser.getID()+" upade: "+ rowCount);
 
-				linkList.add(PREFIX + parser.getID() + POSTFIX);
-				String link = PREFIX + parser.getID() + POSTFIX;
-				try {
-					saveUrl(FOLDER + parser.getID() + POSTFIX, link);
-				} catch (MalformedURLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
+			session.close();
 			System.out.println("Download: " + i);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

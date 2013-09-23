@@ -3,9 +3,7 @@ package com.kharevich.main;
 import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -18,6 +16,7 @@ import com.kharevich.logic.ProductDescription;
 import com.kharevich.logic.ProductToCategory;
 import com.kharevich.logic.ProductToStore;
 import com.kharevich.util.HibernateUtil;
+import com.kharevich.util.HttpUtil;
 
 public class ParseHTML {
 
@@ -46,10 +45,9 @@ public class ParseHTML {
 		// System.out.println(user.toParams());
 
 		ac = new ClassPathXmlApplicationContext(new String[] { "config.xml" });
-		File file = new File("22-09-2013-24shop.xls");
+		File file = HttpUtil.download("http://www.tools.by/base24.php", "test.xls");
 		HTMLProductParser parser = new HTMLProductParser(file);
 		parser.iterator();
-		Set<Integer> type = new HashSet<Integer>();
 		while (parser.hasNext()) {
 			ProductDescription productdescription = (ProductDescription) ac
 					.getBean("product_description_base");
