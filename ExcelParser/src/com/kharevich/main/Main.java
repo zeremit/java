@@ -1,29 +1,30 @@
 package com.kharevich.main;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import jxl.LabelCell;
-import jxl.Sheet;
-import jxl.Workbook;
 import jxl.read.biff.BiffException;
-
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
 
 import com.kharevich.util.HttpUtil;
 
 public class Main {
+	
+	private static DateFormat df = new SimpleDateFormat("yyyyMMdd");
 
 	public static void main(String[] args) throws IOException, InterruptedException, BiffException {
-		HttpUtil.download("http://www.tools.by/base24.php", "test.xls");
+		File product = HttpUtil.download("http://www.tools.by/base24.php", df.format(new Date()) + "base.xls");
+		File image = HttpUtil.download("http://www.tools.by/base.php", df.format(new Date()) + "base24.xls");
+		try {
+			ParseHTML.proceed(product);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		UploadImage.proceed(image);
+		UpdateImageLinkHTML.proceed(image);
 		
 	}
 

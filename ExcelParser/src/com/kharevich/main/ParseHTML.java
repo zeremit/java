@@ -16,7 +16,6 @@ import com.kharevich.logic.ProductDescription;
 import com.kharevich.logic.ProductToCategory;
 import com.kharevich.logic.ProductToStore;
 import com.kharevich.util.HibernateUtil;
-import com.kharevich.util.HttpUtil;
 
 public class ParseHTML {
 
@@ -24,7 +23,7 @@ public class ParseHTML {
 
 	private static final BigDecimal devide = new BigDecimal("8700");
 
-	public static void main(String[] args) throws Exception {
+	public static void proceed(File file) throws Exception {
 		Session session = null;
 		Transaction tx = null;
 		// ProductDescription user = null;
@@ -45,7 +44,6 @@ public class ParseHTML {
 		// System.out.println(user.toParams());
 
 		ac = new ClassPathXmlApplicationContext(new String[] { "config.xml" });
-		File file = HttpUtil.download("http://www.tools.by/base24.php", "test.xls");
 		HTMLProductParser parser = new HTMLProductParser(file);
 		parser.iterator();
 		while (parser.hasNext()) {

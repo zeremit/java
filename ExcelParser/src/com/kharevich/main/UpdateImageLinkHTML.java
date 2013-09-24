@@ -27,10 +27,9 @@ public class UpdateImageLinkHTML {
 	private static String POSTFIX = ".jpg";
 	private static int i = 0;
 
-	public static void main(String[] args) {
+	public static void proceed(File file) {
 		
 		try {
-			File file = HttpUtil.download("http://www.tools.by/base.php", "test.xls");
 			HTMLProductParser parser = new HTMLProductParser(file);
 			parser.iterator();
 

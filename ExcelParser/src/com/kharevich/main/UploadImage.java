@@ -23,7 +23,7 @@ public class UploadImage {
 
 	private static String POSTFIX = ".jpg";
 
-	public static void main(String[] args) {
+	public static void proceed(File file) {
 		FTPClient client = new FTPClient();
 
 		Properties prop = new Properties();
@@ -90,8 +90,6 @@ public class UploadImage {
 			}
 			System.out.println(fileList.size());
 
-			File file = HttpUtil.download("http://www.tools.by/base.php",
-					"test.xls");
 			HTMLProductParser parser = new HTMLProductParser(file);
 			parser.iterator();
 			while (parser.hasNext()) {
