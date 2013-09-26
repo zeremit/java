@@ -19,9 +19,10 @@ public class Main {
 	private static DateFormat df = new SimpleDateFormat("yyyyMMdd");
 
 	public static void main(String[] args) throws IOException, InterruptedException, BiffException {
+		System.setOut(new java.io.PrintStream(System.out, true, "Cp866"));
 		while(true){
 			 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		        System.out.print("Введите номер команды:\n1 - обновить товыры\n2 - обновить изображения\n3 - выход\n");
+		        System.out.print("Введите номер команды:\n1 - обновить товары\n2 - обновить изображения\n3 - выход\n");
 		        try{
 		            int i = Integer.parseInt(br.readLine());
 		            switch (i) {
