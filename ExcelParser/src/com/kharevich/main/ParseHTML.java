@@ -21,9 +21,9 @@ public class ParseHTML {
 
 	private static ClassPathXmlApplicationContext ac;
 
-	private static final BigDecimal devide = new BigDecimal("8700");
+//	private static final BigDecimal devide = new BigDecimal("8700");
 
-	public static void proceed(File file) throws Exception {
+	public static void proceed(File file, BigDecimal devide) throws Exception {
 		Session session = null;
 		Transaction tx = null;
 		// ProductDescription user = null;

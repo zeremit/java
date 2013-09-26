@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,14 +20,16 @@ public class Main {
 	public static void main(String[] args) throws IOException, InterruptedException, BiffException {
 		while(true){
 			 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		        System.out.print("Введите номер команды:\n1 - обновить товыры\n2 - обновить изображения\n3 - выход");
+		        System.out.print("Введите номер команды:\n1 - обновить товыры\n2 - обновить изображения\n3 - выход\n");
 		        try{
 		            int i = Integer.parseInt(br.readLine());
 		            switch (i) {
 					case 1:
+						System.out.print("Введите курс:");
+						int brb = Integer.parseInt(br.readLine());
 						File product = HttpUtil.download("http://www.tools.by/base24.php", df.format(new Date()) + "base.xls");
 						try {
-							ParseHTML.proceed(product);
+							ParseHTML.proceed(product, new BigDecimal(brb));
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
