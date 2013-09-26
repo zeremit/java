@@ -13,5 +13,7 @@ public class PropertyKeys {
 	public static String SRC_URL = "src_url";
 	
 	public static String TEMP_FOLDER = "temp_folder";
+	
+	public static String CACHE_FOLDER = "cache_folder";
 
 }

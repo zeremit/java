@@ -2,24 +2,17 @@ package com.kharevich.main;
 
 import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Iterator;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Row;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
 import com.kharevich.logic.HTMLProductParser;
-import com.kharevich.util.ExcelHelper;
 import com.kharevich.util.HibernateUtil;
-import com.kharevich.util.HttpUtil;
 
 public class UpdateImageLinkHTML {
 	

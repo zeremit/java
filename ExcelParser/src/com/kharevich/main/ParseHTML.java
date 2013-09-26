@@ -15,6 +15,7 @@ import com.kharevich.logic.Product;
 import com.kharevich.logic.ProductDescription;
 import com.kharevich.logic.ProductToCategory;
 import com.kharevich.logic.ProductToStore;
+import com.kharevich.util.ExcelHelper;
 import com.kharevich.util.HibernateUtil;
 
 public class ParseHTML {
@@ -77,6 +78,17 @@ public class ParseHTML {
 				Product product = null;
 				if (result.size() > 0) {
 					product = result.get(0);
+					BigDecimal price = parser.getPrice().divide(devide, 1,
+							RoundingMode.HALF_UP);
+					product.setPrice(price);
+					price = parser.getPartnerPrice().divide(devide, 1,
+							RoundingMode.HALF_UP);
+					product.setPartner_price(price);
+					int count = ExcelHelper.getStatus(parser.getQuantity());
+					product.setQuantity(count);
+					product.setStock_status_id((count>0) ? 4 : 9);
+//					System.out.println(parser.getQuantity() + " " + ExcelHelper.getStatus(parser.getQuantity()) );
+//					session.update(product);
 					// session.update(product);
 				} else {
 					product = (Product) ac.getBean("product_base");
@@ -94,6 +106,9 @@ public class ParseHTML {
 					product.setPartner_price(price);
 					productdescription.setDescription(parser.getDescription());
 					productdescription.setName(parser.getModel());
+					int count = ExcelHelper.getStatus(parser.getQuantity());
+					product.setQuantity(count);
+					product.setStock_status_id((count>0) ? 4 : 9);
 					session.save(product);
 					productdescription.setProduct_id(product.getProduct_id());
 					session.save(productdescription);

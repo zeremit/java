@@ -11,6 +11,7 @@ import java.util.Date;
 
 import jxl.read.biff.BiffException;
 
+import com.kharevich.util.FTPUtil;
 import com.kharevich.util.HttpUtil;
 
 public class Main {
@@ -45,6 +46,7 @@ public class Main {
 		        }catch(NumberFormatException nfe){
 		            System.err.println("Неверный формат!");
 		        }
+		        FTPUtil.deleteFiles();
 		}
 		
 	}

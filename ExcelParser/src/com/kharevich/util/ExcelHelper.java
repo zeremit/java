@@ -8,6 +8,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.util.StringUtil;
+
+import antlr.StringUtils;
 
 public class ExcelHelper {
 	
@@ -53,6 +56,30 @@ public class ExcelHelper {
 		case Cell.CELL_TYPE_NUMERIC:
 			return (int) cell.getNumericCellValue();
 
+		}
+		return 0;
+	}
+	
+	public static boolean isInteger(String s) {
+	    try { 
+	        Integer.parseInt(s); 
+	    } catch(NumberFormatException e) { 
+	        return false; 
+	    }
+	    // only got here if we didn't return false
+	    return true;
+	}
+	
+	public static int getStatus(String cell) {
+		if(isInteger(cell)){
+			return Integer.parseInt(cell);
+		}else{
+			String s = cell.toLowerCase();
+			for (Entry<String, Integer> pair : status.entrySet()) {
+				if (s.contains(pair.getKey())) {
+					return pair.getValue()*extractNumber(s);
+				}
+			}
 		}
 		return 0;
 	}
