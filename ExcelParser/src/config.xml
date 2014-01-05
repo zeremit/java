@@ -3,7 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
-	<bean id="product_base" class="com.kharevich.logic.Product">
+	<bean id="product_base" class="com.kharevich.logic.Product" >
 		<property name="sku" value="" />
 		<property name="upc" value="" />
 		<property name="ean" value="" />

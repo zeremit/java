@@ -4,12 +4,13 @@
 <hibernate-configuration>
  <session-factory>
   <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-  <property name="hibernate.connection.url">jdbc:mysql://localhost/greenlab_landshop</property>
-  <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.connection.url">jdbc:mysql://by115.atservers.net/user1100271_landshop</property>
+  <property name="hibernate.connection.username">landshop</property>
+<property name="hibernate.connection.password">048Nwazi</property>
   <property name="hibernate.current_session_context_class">thread</property>
-  <property name="hibernate.default_schema">greenlab_landshop</property>
+  <property name="hibernate.default_schema">user1100271_landshop</property>
   <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-  <property name="hibernate.show_sql">false</property>
+  <property name="hibernate.show_sql">true</property>
   <property name="hibernate.connection.characterEncoding">UTF-8</property>
   <mapping class="com.kharevich.logic.Product"/>
   <mapping class="com.kharevich.logic.ProductDescription"/>
