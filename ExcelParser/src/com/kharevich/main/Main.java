@@ -22,7 +22,7 @@ public class Main {
 		System.setOut(new java.io.PrintStream(System.out, true, "Cp866"));
 		while(true){
 			 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		        System.out.print("Введите номер команды:\n1 - обновить товары\n2 - обновить изображения\n3 - выход\n");
+		        System.out.print("Введите номер команды:\n1 - обновить товары\n2 - обновить изображения\n3 - удалить кеш\n4 - выход\n");
 		        try{
 		            int i = Integer.parseInt(br.readLine());
 		            switch (i) {
@@ -41,6 +41,9 @@ public class Main {
 						File image = HttpUtil.download("http://www.tools.by/base.php", df.format(new Date()) + "base24.xls");	
 						UploadImage.proceed(image);
 						UpdateImageLinkHTML.proceed(image);
+					case 3:
+						FTPUtil.deleteFiles();
+						break;
 					default:
 						return;
 					}

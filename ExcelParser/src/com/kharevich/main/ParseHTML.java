@@ -87,8 +87,8 @@ public class ParseHTML {
 					int count = ExcelHelper.getStatus(parser.getQuantity());
 					product.setQuantity(count);
 					product.setStock_status_id((count>0) ? 4 : 9);
-//					System.out.println(parser.getQuantity() + " " + ExcelHelper.getStatus(parser.getQuantity()) );
-//					session.update(product);
+					System.out.println(parser.getQuantity() + " " + ExcelHelper.getStatus(parser.getQuantity()) );
+					session.update(product);
 					// session.update(product);
 				} else {
 					product = (Product) ac.getBean("product_base");
