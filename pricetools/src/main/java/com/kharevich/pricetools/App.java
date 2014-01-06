@@ -25,6 +25,6 @@ public class App
         
     	 ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
     	 ProductService emService = (ProductService) context.getBean("productService");
-    	 System.out.println(emService.getById(3).getCode());
+    	 System.out.println(emService.getById(58).getCode());
     }
 }

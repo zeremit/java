@@ -24,10 +24,9 @@ public class ProductDAOImpl implements ProductDAO {
 	@Transactional
 	public Product getProduct(long id) {
 		sessionFactory.getCurrentSession();
-		List<Product> result = (List<Product>) sessionFactory.getCurrentSession()
-				.createCriteria(Product.class)
-				.add(Restrictions.eq("partner_product_id", id)).list();
-		return result.get(0);
+		Product result = (Product) sessionFactory.getCurrentSession()
+				.get(Product.class, id);
+		return result;
 	}
 
 	@Autowired
