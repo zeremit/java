@@ -5,12 +5,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kharevich.pricetools.logic.Product;
 
-@Transactional
 public interface ProductDAO {
 
 	public void addProduct(Product product);
 
-	@Transactional
 	public Product getProduct(long id);
 
 	public SessionFactory getSessionFactory();

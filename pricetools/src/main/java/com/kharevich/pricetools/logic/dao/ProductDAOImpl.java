@@ -10,8 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kharevich.pricetools.logic.Product;
 
-@Transactional
-@Repository
+@Repository("productDao")
 public class ProductDAOImpl implements ProductDAO {
 
 	@Autowired
@@ -24,16 +23,19 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Transactional
 	public Product getProduct(long id) {
+		sessionFactory.getCurrentSession();
 		List<Product> result = (List<Product>) sessionFactory.getCurrentSession()
 				.createCriteria(Product.class)
-				.add(Restrictions.eq("partner_product_id", id)).list().get(0);
+				.add(Restrictions.eq("partner_product_id", id)).list();
 		return result.get(0);
 	}
 
+	@Autowired
 	public SessionFactory getSessionFactory() {
 		return sessionFactory;
 	}
 
+	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}

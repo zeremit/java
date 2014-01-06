@@ -2,5 +2,7 @@
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
                                          "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <mapping class="com.kharevich.pricetools.logic.Product"/>
+	<session-factory>
+		<mapping class="com.kharevich.pricetools.logic.Product" />
+	</session-factory>
 </hibernate-configuration>
