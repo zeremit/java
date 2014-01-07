@@ -10,8 +10,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.kharevich.pricetools.logic.Product;
-import com.kharevich.pricetools.logic.bo.ProductService;
 import com.kharevich.pricetools.logic.dao.ProductDAO;
+import com.kharevich.pricetools.logic.service.ProductService;
 import com.kharevich.pricetools.service.ProductServiceImpl;
 
 /**
