@@ -17,7 +17,7 @@ public class ProductServiceImpl implements ProductService{
 	@Transactional
 	public Product getById(long id) {
 		// TODO Auto-generated method stub
-		return dao.getProduct(id);
+		return dao.getById(id);
 	}
 	
 	
