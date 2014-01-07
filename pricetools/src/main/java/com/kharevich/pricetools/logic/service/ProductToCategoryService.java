@@ -4,6 +4,6 @@ import com.kharevich.pricetools.logic.ProductToCategory;
 
 public interface ProductToCategoryService {
 	
-	public void addProduct(ProductToCategory productToCategory);
+	public void addProductToCategory(ProductToCategory productToCategory);
 
 }

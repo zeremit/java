@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kharevich.pricetools.logic.ProductToCategory;
+import com.kharevich.pricetools.logic.service.ProductToStore;
 
 @Repository("productToStoreDAO")
 public class ProductToStoreDAOImpl implements ProductToStoreDAO {
@@ -15,9 +15,9 @@ public class ProductToStoreDAOImpl implements ProductToStoreDAO {
 
 	@Override
 	@Transactional
-	public void addProductToStore(ProductToCategory productToCategory) {
+	public void addProductToStore(ProductToStore productToStore) {
 		// TODO Auto-generated method stub
-		sessionFactory.getCurrentSession().save(productToCategory);
+		sessionFactory.getCurrentSession().save(productToStore);
 	}
 
 	@Override

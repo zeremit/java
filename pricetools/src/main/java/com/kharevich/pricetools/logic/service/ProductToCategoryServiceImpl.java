@@ -15,9 +15,9 @@ public class ProductToCategoryServiceImpl implements ProductToCategoryService {
 	
 	@Override
 	@Transactional
-	public void addProduct(ProductToCategory productToCategory) {
+	public void addProductToCategory(ProductToCategory productToCategory) {
 		// TODO Auto-generated method stub
-
+		dao.addProductToCategory(productToCategory);
 	}
 
 }
