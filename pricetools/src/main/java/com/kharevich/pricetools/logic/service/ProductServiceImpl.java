@@ -1,4 +1,4 @@
-package com.kharevich.pricetools.logic.bo;
+package com.kharevich.pricetools.logic.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,21 @@ public class ProductServiceImpl implements ProductService{
 	public Product getById(long id) {
 		// TODO Auto-generated method stub
 		return dao.getById(id);
+	}
+
+	@Override
+	@Transactional
+	public void addProduct(Product product) {
+		// TODO Auto-generated method stub
+		dao.addProduct(product);
+	}
+
+	@Override
+	@Transactional
+	public void updateProduct(Product product) {
+		// TODO Auto-generated method stub
+		dao.updateProduct(product);
+		
 	}
 	
 	
