@@ -6,6 +6,6 @@ public interface ProductService {
 	
 	public void addProduct(Product product);
 	
-	public Product getProduct(long id);
+	public Product getProduct(String id);
 
 }

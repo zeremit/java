@@ -50,19 +50,11 @@ public class AppTest
     }
     
     public void testConn() {
-    	Session session = HibernateUtil.getSessionFactory().openSession();
-		@SuppressWarnings("unchecked")
-		List<Product> result = session
-				.createCriteria(Product.class)
-				.add(Restrictions.eq("partner_product_id", (long) 3))
-				.setMaxResults(1).list();
-		assertTrue(result.size()>0);
+    	
 	}
     
     public void testSave() {
-    	ProductService service = new ProductServiceImpl();
-    	System.out.println(service.getProduct(3).getProduct_id());
-		assertTrue(true);
+    	
 	}
     
     public void testProduct() {

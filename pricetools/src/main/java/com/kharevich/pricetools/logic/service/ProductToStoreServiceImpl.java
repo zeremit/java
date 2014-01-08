@@ -6,13 +6,13 @@ import org.springframework.stereotype.Repository;
 import com.kharevich.pricetools.logic.dao.ProductToStoreDAO;
 
 @Repository("productToStore")
-public class ProductToStoreImpl implements ProductToStore{
+public class ProductToStoreServiceImpl implements ProductToStoreService{
 	
 	@Autowired
 	ProductToStoreDAO dao;
 
 	@Override
-	public void addProductToStore(ProductToStore productToStore) {
+	public void addProductToStore(ProductToStoreService productToStore) {
 		// TODO Auto-generated method stub
 		dao.addProductToStore(productToStore);
 	}

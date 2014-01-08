@@ -20,11 +20,9 @@ import com.kharevich.pricetools.service.ProductServiceImpl;
  */
 public class App 
 {
-    public static void main( String[] args )
+    public static void main( String[] args ) throws Exception
     {
         
-    	 ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-    	 ProductService emService = (ProductService) context.getBean("productService");
-    	 System.out.println(emService.getById(58).getCode());
+    	 ParseHTML.proceed();
     }
 }

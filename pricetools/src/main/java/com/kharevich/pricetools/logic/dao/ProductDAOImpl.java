@@ -20,10 +20,10 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Transactional
-	public Product getById(long id) {
+	public Product getById(String id) {
 		sessionFactory.getCurrentSession();
 		Product result = (Product) sessionFactory.getCurrentSession()
-				.get(Product.class, id);
+				.get(Product.class, Long.parseLong(id));
 		return result;
 	}
 
