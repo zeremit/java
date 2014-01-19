@@ -27,6 +27,7 @@ public class HttpUtil {
 			}
 			bos.flush();
 			bis.close();
+			bos.close();
 		}
 		return file;
 	}

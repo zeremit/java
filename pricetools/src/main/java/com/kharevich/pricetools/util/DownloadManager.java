@@ -7,8 +7,18 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-public class HttpUtil {
+public class DownloadManager {
+	
+	private static DateFormat df = new SimpleDateFormat("yyyyMMdd");
+	
+	public static File download(String uri, String fileName, boolean needDate) throws IOException {
+		return download(uri,needDate ? df.format(new Date()) : "" + fileName);
+	}
+	
 	public static File download(String uri, String fileName) throws IOException {
 		File file = new File(fileName);
 		if (!file.exists()) {
@@ -31,4 +41,5 @@ public class HttpUtil {
 		}
 		return file;
 	}
+
 }

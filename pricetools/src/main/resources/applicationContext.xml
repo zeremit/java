@@ -5,34 +5,39 @@
 	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd">
 
-  <context:component-scan base-package="com.kharevich.pricetools.logic.*" />
-    
-  <tx:annotation-driven/>
-  
- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-    <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-    <property name="url" value="jdbc:mysql://localhost:3306/greenlab_landshop" />
-    <property name="username" value="root" />
-    <property name="password" value="" />
-  </bean>
+	<context:component-scan base-package="com.kharevich.pricetools.logic.*" />
 
-  <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-    <property name="dataSource" ref="dataSource"></property>
-     <property name="annotatedClasses">
-            <list>
-                <value>com.kharevich.pricetools.logic.Product</value>
-            </list>
-        </property>
-    <property name="hibernateProperties">
-      <props>
-        <prop 
-         key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
-        <prop key="hibernate.show_sql">true</prop>
-      </props>
-    </property>
-  </bean>
-  
-  <bean id="product_base" class="com.kharevich.pricetools.logic.Product" >
+	<tx:annotation-driven />
+
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/greenlab_landshop?zeroDateTimeBehavior=convertToNull" />
+		<property name="username" value="root" />
+		<property name="password" value="" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="annotatedClasses">
+			<list>
+				<value>com.kharevich.pricetools.logic.Product</value>
+				<value>com.kharevich.pricetools.logic.ProductDescription</value>
+				<value>com.kharevich.pricetools.logic.ProductToCategory</value>
+				<value>com.kharevich.pricetools.logic.ProductToStore</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="product_base" class="com.kharevich.pricetools.logic.Product">
 		<property name="sku" value="" />
 		<property name="upc" value="" />
 		<property name="ean" value="" />
@@ -52,6 +57,7 @@
 		<property name="height" value="0" />
 		<property name="length_class_id" value="4" />
 		<property name="subtract" value="1" />
+		<property name="percent" value="1.0" />
 		<property name="minimum" value="1" />
 		<property name="sort_order" value="1" />
 		<property name="status" value="1" />
@@ -70,8 +76,9 @@
 	<bean id="product_to_category_base" class="com.kharevich.pricetools.logic.ProductToCategory">
 		<property name="category_id" value="458" />
 	</bean>
-  
-  <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager" 
-    p:sessionFactory-ref="sessionFactory">
-  </bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+		p:sessionFactory-ref="sessionFactory">
+	</bean>
 </beans>

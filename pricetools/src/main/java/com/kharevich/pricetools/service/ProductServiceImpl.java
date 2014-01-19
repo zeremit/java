@@ -22,7 +22,7 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	public Product getProduct(String id) {
 		// TODO Auto-generated method stub
-		return productDAO.getById(id);
+		return productDAO.getByPartnerId(id);
 	}
 
 }

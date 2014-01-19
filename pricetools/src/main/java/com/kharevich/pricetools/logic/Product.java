@@ -1,8 +1,8 @@
 package com.kharevich.pricetools.logic;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -78,6 +78,12 @@ public class Product extends Bean {
 	
 	@Column(name = "partner_price", nullable = false)
 	private BigDecimal partner_price = BigDecimal.ZERO;
+	
+	@Column(name = "percent", nullable = false)
+	private BigDecimal percent = BigDecimal.ONE;
+	
+	@Column(name = "not_change", nullable = false)
+	private Boolean not_change = Boolean.FALSE;
 
 	@Column(name = "points", nullable = true, columnDefinition = "int(8) default 0")
 	private int points;
@@ -279,6 +285,22 @@ public class Product extends Bean {
 
 	public void setPartner_price(BigDecimal partner_price) {
 		this.partner_price = partner_price;
+	}
+
+	public BigDecimal getPercent() {
+		return percent;
+	}
+
+	public void setPercent(BigDecimal percent) {
+		this.percent = percent;
+	}
+
+	public Boolean getNot_change() {
+		return not_change;
+	}
+
+	public void setNot_change(Boolean not_change) {
+		this.not_change = not_change;
 	}
 
 	public int getPoints() {

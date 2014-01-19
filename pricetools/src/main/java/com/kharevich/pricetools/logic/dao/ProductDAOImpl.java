@@ -1,6 +1,9 @@
 package com.kharevich.pricetools.logic.dao;
 
+import java.util.List;
+
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,11 +23,14 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Transactional
-	public Product getById(String id) {
+	public Product getByPartnerId(String id) {
 		sessionFactory.getCurrentSession();
-		Product result = (Product) sessionFactory.getCurrentSession()
-				.get(Product.class, Long.parseLong(id));
-		return result;
+		@SuppressWarnings("unchecked")
+		List<Product> result = (List<Product>) sessionFactory.getCurrentSession()
+				.createCriteria(Product.class).add(Restrictions.eq("partner_product_id",Long.parseLong(id))).list();
+		if (result.size()>0)
+			return result.get(0);
+		return null;
 	}
 
 	public SessionFactory getSessionFactory() {

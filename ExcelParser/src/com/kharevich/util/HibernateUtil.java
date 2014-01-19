@@ -7,26 +7,27 @@ import org.hibernate.service.ServiceRegistry;
 import org.hibernate.service.ServiceRegistryBuilder;
 
 public class HibernateUtil {
-    private static final SessionFactory sessionFactory
+    private static SessionFactory sessionFactory
                                 = configureSessionFactory();
 	private static ServiceRegistry serviceRegistry;
  
     /**
-     * Создание фабрики
+     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      * @return {@link SessionFactory}
      * @throws HibernateException
      */
     private static SessionFactory configureSessionFactory()
             throws HibernateException {
  
-            Configuration configuration = new Configuration().configure();
-            serviceRegistry = new ServiceRegistryBuilder().applySettings(
-                    configuration.getProperties()).buildServiceRegistry();
-            return configuration.buildSessionFactory(serviceRegistry);
+    	Configuration configuration = new Configuration();
+        configuration.configure();
+        serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+        sessionFactory = new Configuration().configure().buildSessionFactory(serviceRegistry);
+        return sessionFactory;
     }
  
     /**
-     * Получить фабрику сессий
+     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
      * @return {@link SessionFactory}
      */
     public static SessionFactory getSessionFactory() {

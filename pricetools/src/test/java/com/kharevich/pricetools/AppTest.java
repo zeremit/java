@@ -1,19 +1,13 @@
 package com.kharevich.pricetools;
 
-import java.util.List;
-
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.kharevich.pricetools.logic.Product;
-import com.kharevich.pricetools.service.ProductService;
-import com.kharevich.pricetools.service.ProductServiceImpl;
 
 /**
  * Unit test for simple App.

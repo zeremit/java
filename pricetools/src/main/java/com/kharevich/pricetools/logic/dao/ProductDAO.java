@@ -8,7 +8,7 @@ public interface ProductDAO {
 
 	public void addProduct(Product product);
 
-	public Product getById(String id);
+	public Product getByPartnerId(String id);
 
 	public void updateProduct(Product product);
 

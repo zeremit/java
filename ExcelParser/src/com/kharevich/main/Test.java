@@ -2,8 +2,6 @@ package com.kharevich.main;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -18,17 +16,10 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.kharevich.logic.Product;
-import com.kharevich.logic.ProductDescription;
-import com.kharevich.logic.ProductToCategory;
-import com.kharevich.logic.ProductToStore;
 import com.kharevich.util.ExcelHelper;
 import com.kharevich.util.HibernateUtil;
 
 public class Test {
-
-	private static ClassPathXmlApplicationContext ac;
-
-	private static final BigDecimal devide = new BigDecimal("8600");
 
 	public static void main(String[] args) throws Exception {
 		Session session = null;
@@ -50,7 +41,7 @@ public class Test {
 		// }
 		// System.out.println(user.toParams());
 
-		ac = new ClassPathXmlApplicationContext(new String[] { "config.xml" });
+		new ClassPathXmlApplicationContext(new String[] { "config.xml" });
 		FileInputStream file = new FileInputStream(new File("base24.xls"));
 		HSSFWorkbook workbook = new HSSFWorkbook(file);
 

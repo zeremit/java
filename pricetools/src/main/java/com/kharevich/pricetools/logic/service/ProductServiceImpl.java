@@ -15,9 +15,9 @@ public class ProductServiceImpl implements ProductService{
 
 	@Override
 	@Transactional
-	public Product getById(String id) {
+	public Product getByPartnerId(String id) {
 		// TODO Auto-generated method stub
-		return dao.getById(id);
+		return dao.getByPartnerId(id);
 	}
 
 	@Override
