@@ -4,11 +4,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
-import java.util.Date;
 
 import com.kharevich.pricetools.util.DownloadManager;
 import com.kharevich.pricetools.util.FTPUtil;
-import com.kharevich.pricetools.util.HttpUtil;
 
 /**
  * Hello world!
@@ -33,7 +31,7 @@ public class App {
 							"http://www.tools.by/base24.php",
 							"base24.xls",true);
 					try {
-						new ParseHTML(new BigDecimal(brb), product);
+						new ParseHTML(new BigDecimal(brb), product).proceed();;
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

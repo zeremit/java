@@ -47,10 +47,12 @@ public class ParseHTML {
 		while (parser.hasNext()) {
 			parser.next();
 			Product product = productService.getByPartnerId(parser.getID());
-			if (product != null && !product.getNot_change()) {
+			if (product != null) {
 				BigDecimal price = parser.getPrice().divide(devide, 1,
 						RoundingMode.HALF_UP);
-				product.setPrice(price.multiply(product.getPercent()));
+				if(!product.getNot_change()){
+					product.setPrice(price.multiply(product.getPercent()));
+				}
 				price = parser.getPartnerPrice().divide(devide, 1,
 						RoundingMode.HALF_UP);
 				product.setPartner_price(price);
@@ -58,10 +60,7 @@ public class ParseHTML {
 				product.setQuantity(count);
 				product.setStock_status_id((count > 0) ? 4 : 9);
 				product.setDate_modified(new Date());
-				System.out.println(parser.getQuantity() + " "
-						+ ExcelHelper.getStatus(parser.getQuantity()));
 				productService.updateProduct(product);
-				// session.update(product);
 			} else {
 				product = (Product) context.getBean("product_base");
 				ProductDescription productDescription = (ProductDescription) context
