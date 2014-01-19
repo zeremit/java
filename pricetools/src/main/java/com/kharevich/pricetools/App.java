@@ -20,7 +20,6 @@ public class App {
 					System.in));
 			System.out
 					.print("Введите номер команды:\n1 - обновить товары\n2 - обновить изображения\n3 - удалить кеш\n4 - выход\n");
-			FTPUtil.deleteFiles();
 			try {
 				int i = Integer.parseInt(br.readLine());
 				switch (i) {
