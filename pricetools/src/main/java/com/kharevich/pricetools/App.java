@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 
 import com.kharevich.pricetools.util.DownloadManager;
 import com.kharevich.pricetools.util.FTPUtil;
-
 /**
  * Hello world!
  * 
@@ -27,24 +26,24 @@ public class App {
 					System.out.print("Введите курс:");
 					int brb = Integer.parseInt(br.readLine());
 					File product = DownloadManager.download(
-							"http://www.tools.by/base24.php",
-							"base24.xls",true);
+							"http://www.tools.by/base24.php", "base24.xls",
+							true);
 					try {
-						new ParseHTML(new BigDecimal(brb), product).proceed();;
+						new ParseHTML(new BigDecimal(brb), product).proceed();
+						;
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					break;
 				case 2:
-//					File image = HttpUtil.download(
-//							"http://www.tools.by/base.php",
-//							df.format(new Date()) + "base24.xls");
-//					UploadImage.proceed(image);
-//					UpdateImageLinkHTML.proceed(image);
+					File image = DownloadManager.download(
+							"http://www.tools.by/base.php", "base.xls", true);	
+					UploadImage.proceed(image);
+					break;
 				case 3:
-//					FTPUtil.deleteFiles();
-//					break;
+					// FTPUtil.deleteFiles();
+					// break;
 				default:
 					return;
 				}
