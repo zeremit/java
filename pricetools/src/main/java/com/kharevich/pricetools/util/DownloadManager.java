@@ -16,7 +16,7 @@ public class DownloadManager {
 	private static DateFormat df = new SimpleDateFormat("yyyyMMdd");
 	
 	public static File download(String uri, String fileName, boolean needDate) throws IOException {
-		return download(uri,needDate ? df.format(new Date()) : "" + fileName);
+		return download(uri,(needDate ? df.format(new Date()) : "") + fileName);
 	}
 	
 	public static File download(String uri, String fileName) throws IOException {
