@@ -13,7 +13,7 @@ import com.kharevich.pricetools.util.FTPUtil;
  */
 public class App {
 	public static void main(String[] args) throws Exception {
-		System.setOut(new java.io.PrintStream(System.out, true, "Cp866"));
+		//System.setOut(new java.io.PrintStream(System.out, true, "Cp866"));
 		while (true) {
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					System.in));
@@ -40,6 +40,7 @@ public class App {
 					File image = DownloadManager.download(
 							"http://www.tools.by/base.php", "base.xls", true);	
 					UploadImage.proceed(image);
+					UpdateImageLinkHTML.proceed(image);
 					break;
 				case 3:
 					// FTPUtil.deleteFiles();
