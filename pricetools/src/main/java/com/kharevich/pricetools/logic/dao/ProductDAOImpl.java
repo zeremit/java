@@ -15,7 +15,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-	
+
 	@Transactional
 	public void addProduct(Product product) {
 		// TODO Auto-generated method stub
@@ -23,12 +23,33 @@ public class ProductDAOImpl implements ProductDAO {
 	}
 
 	@Transactional
-	public Product getByPartnerId(String id) {
-		sessionFactory.getCurrentSession();
+	public Product getBySkuOrPartnerId(String sku, String partnerId) {
+		Product result = getBySku(sku);
+		if (result != null)
+			return result;
+		result = getByPartnerId(partnerId);
+		return result;
+	}
+
+	@Transactional
+	public Product getBySku(String sku) {
 		@SuppressWarnings("unchecked")
-		List<Product> result = (List<Product>) sessionFactory.getCurrentSession()
-				.createCriteria(Product.class).add(Restrictions.eq("partner_product_id",Long.parseLong(id))).list();
-		if (result.size()>0)
+		List<Product> result = (List<Product>) sessionFactory
+				.getCurrentSession().createCriteria(Product.class)
+				.add(Restrictions.eq("sku", sku)).list();
+		if (result.size() > 0)
+			return result.get(0);
+		return null;
+	}
+
+	@Transactional
+	public Product getByPartnerId(String id) {
+		@SuppressWarnings("unchecked")
+		List<Product> result = (List<Product>) sessionFactory
+				.getCurrentSession().createCriteria(Product.class)
+				.add(Restrictions.eq("partner_product_id", Long.parseLong(id)))
+				.list();
+		if (result.size() > 0)
 			return result.get(0);
 		return null;
 	}
@@ -46,6 +67,19 @@ public class ProductDAOImpl implements ProductDAO {
 	public void updateProduct(Product product) {
 		// TODO Auto-generated method stub
 		sessionFactory.getCurrentSession().update(product);
+	}
+
+	@Override
+	@Transactional
+	public Product getByCode(String code) {
+		// TODO Auto-generated method stub
+		@SuppressWarnings("unchecked")
+		List<Product> result = (List<Product>) sessionFactory
+				.getCurrentSession().createCriteria(Product.class)
+				.add(Restrictions.eq("code", code)).list();
+		if (result.size() > 0)
+			return result.get(0);
+		return null;
 	}
 
 }

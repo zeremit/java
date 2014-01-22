@@ -30,6 +30,9 @@ public class ParseHTML {
 	private BigDecimal devide;
 	
 	private File file;
+	
+	private static String PREFIX = "data/toolsby/";
+	private static String POSTFIX = ".jpg";
 
 	public void proceed() throws Exception {
 		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext(
@@ -46,7 +49,7 @@ public class ParseHTML {
 		parser.iterator();
 		while (parser.hasNext()) {
 			parser.next();
-			Product product = productService.getByPartnerId(parser.getID());
+			Product product = productService.getByCode(parser.getCode());
 			if (product != null) {
 				BigDecimal price = parser.getPrice().divide(devide, 1,
 						RoundingMode.HALF_UP);
@@ -74,6 +77,8 @@ public class ParseHTML {
 				product.setCode(parser.getCode());
 				product.setOkdp(parser.getOKDP());
 				product.setSku(parser.getSKU());
+		        String url = PREFIX+parser.getID()+POSTFIX;
+		        product.setImage(url);
 				System.out.println(product.getPartner_product_id());
 				BigDecimal price = parser.getPrice().divide(devide, 1,
 						RoundingMode.HALF_UP);

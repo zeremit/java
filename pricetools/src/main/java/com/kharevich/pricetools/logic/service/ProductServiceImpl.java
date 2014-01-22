@@ -34,6 +34,18 @@ public class ProductServiceImpl implements ProductService{
 		dao.updateProduct(product);
 		
 	}
+
+	@Override
+	public Product getBySkuOrPartnerId(String sku, String partnerId) {
+		// TODO Auto-generated method stub
+		return dao.getBySkuOrPartnerId(sku, partnerId);
+	}
+
+	@Override
+	public Product getByCode(String code) {
+		// TODO Auto-generated method stub
+		return dao.getByCode(code);
+	}
 	
 	
 }
