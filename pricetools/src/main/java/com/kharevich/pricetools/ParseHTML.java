@@ -4,11 +4,13 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.kharevich.pricetools.logic.Product;
+import com.kharevich.pricetools.logic.ProductData;
 import com.kharevich.pricetools.logic.ProductDescription;
 import com.kharevich.pricetools.logic.ProductToCategory;
 import com.kharevich.pricetools.logic.ProductToStore;
@@ -16,7 +18,6 @@ import com.kharevich.pricetools.logic.service.ProductDescriptionService;
 import com.kharevich.pricetools.logic.service.ProductService;
 import com.kharevich.pricetools.logic.service.ProductToCategoryService;
 import com.kharevich.pricetools.logic.service.ProductToStoreService;
-import com.kharevich.pricetools.util.ExcelHelper;
 import com.kharevich.pricetools.util.HTMLProductParser;
 
 
@@ -46,20 +47,20 @@ public class ParseHTML {
 		ProductToStoreService productToStoreService = (ProductToStoreService) context
 				.getBean("productToStoreService");
 		HTMLProductParser parser = new HTMLProductParser(file);
-		parser.iterator();
-		while (parser.hasNext()) {
-			parser.next();
-			Product product = productService.getByCode(parser.getCode());
+		Iterator<ProductData> it = parser.iterator();
+		while (it.hasNext()) {
+			ProductData data = it.next();
+			Product product = productService.getByCode(data.getCode());
 			if (product != null) {
-				BigDecimal price = parser.getPrice().divide(devide, 1,
+				BigDecimal price = data.getPrice().divide(devide, 1,
 						RoundingMode.HALF_UP);
 				if(!product.getNot_change()){
 					product.setPrice(price.multiply(product.getPercent()));
 				}
-				price = parser.getPartnerPrice().divide(devide, 1,
+				price = data.getPartnerPrice().divide(devide, 1,
 						RoundingMode.HALF_UP);
 				product.setPartner_price(price);
-				int count = ExcelHelper.getStatus(parser.getQuantity());
+				int count = data.getQuantity();
 				product.setQuantity(count);
 				product.setStock_status_id((count > 0) ? 4 : 9);
 				product.setDate_modified(new Date());
@@ -72,23 +73,23 @@ public class ParseHTML {
 						.getBean("product_to_store_base");
 				ProductToCategory productToCategory = (ProductToCategory) context
 						.getBean("product_to_category_base");
-				product.setModel(parser.getModel());
-				product.setPartner_product_id(Long.parseLong(parser.getID()));
-				product.setCode(parser.getCode());
-				product.setOkdp(parser.getOKDP());
-				product.setSku(parser.getSKU());
-		        String url = PREFIX+parser.getID()+POSTFIX;
+				product.setModel(data.getModel());
+				product.setPartner_product_id(Long.parseLong(data.getiD()));
+				product.setCode(data.getCode());
+//				product.setOkdp(parser.getOKDP());
+				product.setSku(data.getSku());
+		        String url = PREFIX+data.getiD()+POSTFIX;
 		        product.setImage(url);
 				System.out.println(product.getPartner_product_id());
-				BigDecimal price = parser.getPrice().divide(devide, 1,
+				BigDecimal price = data.getPrice().divide(devide, 1,
 						RoundingMode.HALF_UP);
 				product.setPrice(price);
-				price = parser.getPartnerPrice().divide(devide, 1,
+				price = data.getPartnerPrice().divide(devide, 1,
 						RoundingMode.HALF_UP);
 				product.setPartner_price(price);
-				productDescription.setDescription(parser.getDescription());
-				productDescription.setName(parser.getModel());
-				int count = ExcelHelper.getStatus(parser.getQuantity());
+				productDescription.setDescription(data.getDescription());
+				productDescription.setName(data.getModel());
+				int count = data.getQuantity();
 				product.setQuantity(count);
 				product.setStock_status_id((count > 0) ? 4 : 9);
 				productService.addProduct(product);
