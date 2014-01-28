@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Map;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -18,6 +19,8 @@ import com.kharevich.pricetools.logic.service.ProductDescriptionService;
 import com.kharevich.pricetools.logic.service.ProductService;
 import com.kharevich.pricetools.logic.service.ProductToCategoryService;
 import com.kharevich.pricetools.logic.service.ProductToStoreService;
+import com.kharevich.pricetools.util.DownloadManager;
+import com.kharevich.pricetools.util.HTMLPicParser;
 import com.kharevich.pricetools.util.HTMLProductParser;
 
 
@@ -48,6 +51,9 @@ public class ParseHTML {
 				.getBean("productToStoreService");
 		HTMLProductParser parser = new HTMLProductParser(file);
 		Iterator<ProductData> it = parser.iterator();
+		File image = DownloadManager.download(
+				"http://www.tools.by/base.php", "base.xls", true);	
+		Map<String, String> imageMap = new HTMLPicParser(image).getMap();
 		while (it.hasNext()) {
 			ProductData data = it.next();
 			Product product = productService.getByCode(data.getCode());
@@ -64,7 +70,7 @@ public class ParseHTML {
 				product.setQuantity(count);
 				product.setStock_status_id((count > 0) ? 4 : 9);
 				product.setDate_modified(new Date());
-				productService.updateProduct(product);
+			//	productService.updateProduct(product);
 			} else {
 				product = (Product) context.getBean("product_base");
 				ProductDescription productDescription = (ProductDescription) context
@@ -78,7 +84,12 @@ public class ParseHTML {
 				product.setCode(data.getCode());
 //				product.setOkdp(parser.getOKDP());
 				product.setSku(data.getSku());
-		        String url = PREFIX+data.getiD()+POSTFIX;
+				String url = imageMap.get(data.getCode());
+				if(url!=null){
+					url = PREFIX+data.getiD()+POSTFIX;
+				}else{
+					url = null;
+				}
 		        product.setImage(url);
 				System.out.println(product.getPartner_product_id());
 				BigDecimal price = data.getPrice().divide(devide, 1,

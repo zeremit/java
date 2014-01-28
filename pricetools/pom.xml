@@ -140,7 +140,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.kharevich.pricetools.App</mainClass>
+							<mainClass>com.kharevich.pricetools.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

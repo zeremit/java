@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 
 import com.kharevich.pricetools.util.DownloadManager;
 import com.kharevich.pricetools.util.FTPUtil;
+import com.kharevich.pricetools.util.HTMLPicParser;
 /**
  * Hello world!
  * 
@@ -37,9 +38,8 @@ public class App {
 					}
 					break;
 				case 2:
-					File image = DownloadManager.download(
-							"http://www.tools.by/base24.php", "base24.xls", true);	
-					UploadImage.proceed(image);
+					
+				//	UploadImage.proceed(image);
 				//	UpdateImageLinkHTML.proceed(image);
 					break;
 				case 3:
