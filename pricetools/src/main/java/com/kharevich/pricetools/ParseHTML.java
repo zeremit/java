@@ -1,6 +1,7 @@
 package com.kharevich.pricetools;
 
 import java.io.File;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Date;
@@ -38,7 +39,7 @@ public class ParseHTML {
 	private static String PREFIX = "data/toolsby/";
 	private static String POSTFIX = ".jpg";
 
-	public void proceed() throws Exception {
+	public void proceed() throws IOException  {
 		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		ProductService productService = (ProductService) context

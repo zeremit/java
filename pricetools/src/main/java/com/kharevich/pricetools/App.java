@@ -38,8 +38,10 @@ public class App {
 					}
 					break;
 				case 2:
-					
-				//	UploadImage.proceed(image);
+					File image = DownloadManager.download(
+							"http://www.tools.by/base24.php", "base24.xls",
+							true);
+					UploadImage.proceed(image);
 				//	UpdateImageLinkHTML.proceed(image);
 					break;
 				case 3:
@@ -51,7 +53,7 @@ public class App {
 			} catch (NumberFormatException nfe) {
 				System.err.println("Неверный формат!");
 			}
-			FTPUtil.deleteFiles();
+			//FTPUtil.deleteFiles();
 		}
 	}
 }
