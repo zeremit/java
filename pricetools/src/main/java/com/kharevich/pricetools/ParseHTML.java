@@ -8,8 +8,11 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import antlr.Parser;
 
 import com.kharevich.pricetools.logic.Product;
 import com.kharevich.pricetools.logic.ProductData;
@@ -24,22 +27,23 @@ import com.kharevich.pricetools.util.DownloadManager;
 import com.kharevich.pricetools.util.HTMLPicParser;
 import com.kharevich.pricetools.util.HTMLProductParser;
 
-
 public class ParseHTML {
-	
-	public ParseHTML(BigDecimal decimal, File file){
+
+	public ParseHTML(BigDecimal decimal, File file) {
 		this.devide = decimal;
 		this.file = file;
 	}
 
+	private static Logger _log = Logger.getLogger(Parser.class);
+
 	private BigDecimal devide;
-	
+
 	private File file;
-	
+
 	private static String PREFIX = "data/toolsby/";
 	private static String POSTFIX = ".jpg";
 
-	public void proceed() throws IOException  {
+	public void proceed() throws IOException {
 		ConfigurableApplicationContext context = new ClassPathXmlApplicationContext(
 				"applicationContext.xml");
 		ProductService productService = (ProductService) context
@@ -52,16 +56,17 @@ public class ParseHTML {
 				.getBean("productToStoreService");
 		HTMLProductParser parser = new HTMLProductParser(file);
 		Iterator<ProductData> it = parser.iterator();
-		File image = DownloadManager.download(
-				"http://www.tools.by/base.php", "base.xls", true);	
+		File image = DownloadManager.download("http://www.tools.by/base.php",
+				"base.xls", true);
 		Map<String, String> imageMap = new HTMLPicParser(image).getMap();
 		while (it.hasNext()) {
 			ProductData data = it.next();
+			// try{
 			Product product = productService.getByCode(data.getCode());
 			if (product != null) {
 				BigDecimal price = data.getPrice().divide(devide, 1,
 						RoundingMode.HALF_UP);
-				if(!product.getNot_change()){
+				if (!product.getNot_change()) {
 					product.setPrice(price.multiply(product.getPercent()));
 				}
 				price = data.getPartnerPrice().divide(devide, 1,
@@ -71,7 +76,7 @@ public class ParseHTML {
 				product.setQuantity(count);
 				product.setStock_status_id((count > 0) ? 4 : 9);
 				product.setDate_modified(new Date());
-			//	productService.updateProduct(product);
+				// productService.updateProduct(product);
 			} else {
 				product = (Product) context.getBean("product_base");
 				ProductDescription productDescription = (ProductDescription) context
@@ -83,15 +88,15 @@ public class ParseHTML {
 				product.setModel(data.getModel());
 				product.setPartner_product_id(Long.parseLong(data.getiD()));
 				product.setCode(data.getCode());
-//				product.setOkdp(parser.getOKDP());
+				// product.setOkdp(parser.getOKDP());
 				product.setSku(data.getSku());
 				String url = imageMap.get(data.getCode());
-				if(url!=null){
-					url = PREFIX+data.getiD()+POSTFIX;
-				}else{
+				if (url != null) {
+					url = PREFIX + data.getiD() + POSTFIX;
+				} else {
 					url = null;
 				}
-		        product.setImage(url);
+				product.setImage(url);
 				System.out.println(product.getPartner_product_id());
 				BigDecimal price = data.getPrice().divide(devide, 1,
 						RoundingMode.HALF_UP);
@@ -106,13 +111,16 @@ public class ParseHTML {
 				product.setStock_status_id((count > 0) ? 4 : 9);
 				productService.addProduct(product);
 				productDescription.setProduct_id(product.getProduct_id());
-				productDescriptionService.addProductDescription(productDescription);
+				// productDescriptionService.addProductDescription(productDescription);
 				productToStore.setProduct_id(product.getProduct_id());
-				productToStoreService.addProductToStore(productToStore);
+				// productToStoreService.addProductToStore(productToStore);
 				productToCategory.setProduct_id(product.getProduct_id());
-				productToCategoryService.addProductToCategory(productToCategory);
+				// productToCategoryService.addProductToCategory(productToCategory);
 				// session.save(productToCategory);
 			}
+			// }catch(Exception e){
+			// _log.error(e.getMessage());
+			// }
 		}
 		context.close();
 

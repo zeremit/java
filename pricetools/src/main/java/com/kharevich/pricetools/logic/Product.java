@@ -129,8 +129,7 @@ public class Product extends Bean {
 	private Date date_added = new Date(Calendar.getInstance().getTimeInMillis());
 
 	@Column(name = "date_modified", nullable = false)
-	private Date date_modified = new Date(Calendar.getInstance()
-			.getTimeInMillis());
+	private Date date_modified = null;
 
 	@Column(name = "viewed", nullable = false)
 	private int viewed = 0;

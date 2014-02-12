@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
@@ -23,7 +23,7 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 			</list>
 		</property>
 	</bean>
-    <bean id="productBo" class="com.kharevich.pricetools.logic.bo.ProductBO"></bean>
+	<bean id="productBo" class="com.kharevich.pricetools.logic.bo.ProductBO"></bean>
 	<bean id="productDao" class="com.kharevich.pricetools.logic.dao.ProductDAO">
 	</bean>
 	<bean id="transactionManager"
