@@ -19,6 +19,7 @@ public class App
         String driver = "com.mysql.jdbc.Driver";
         String userName = "landshop_green";
         String password = "048Nwazi";
+        System.out.println("ok");
         try {
             while (true) {
                 Class.forName(driver).newInstance();
