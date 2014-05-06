@@ -32,7 +32,7 @@ public class App
                 ResultSet result1 = st1.executeQuery(sql);
                 while (result.next()) {
                     result1.next();
-                    if (result.getLong(1) != result1.getLong(1))
+                    //if (result.getLong(1) != result1.getLong(1))
                         System.out.println(result.getLong(1) == result1.getLong(1));
                 }
 
