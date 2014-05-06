@@ -14,7 +14,7 @@ public class App
     public static void main( String[] args )
     {
         Connection conn = null;
-        String url = "jdbc:mysql://landshop.by/";
+        String url = "jdbc:mysql://93.125.99.50/";
         String dbName = "landshop_landshop";
         String driver = "com.mysql.jdbc.Driver";
         String userName = "landshop_green";
